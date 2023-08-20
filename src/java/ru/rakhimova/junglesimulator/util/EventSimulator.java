@@ -41,7 +41,7 @@ public class EventSimulator {
 
             try {
                 Thread.sleep(1500);
-            } catch(InterruptedException e) {
+            } catch (InterruptedException e) {
                 throw new RuntimeException();
             }
         }
