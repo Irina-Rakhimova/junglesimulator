@@ -181,7 +181,6 @@ public class EventSimulator {
                 health = 0;
             }
             bear.setHealth(health);
-
         }
     }
 }
