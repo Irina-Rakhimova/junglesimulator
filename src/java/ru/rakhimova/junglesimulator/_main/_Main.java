@@ -1,7 +1,7 @@
-package ru.rakhimova.junglesimulator._main;
+package java.ru.rakhimova.junglesimulator._main;
 
 import ru.rakhimova.junglesimulator.entity.Bear;
-import ru.rakhimova.junglesimulator.util.EventSimulator;
+import java.ru.rakhimova.junglesimulator.util.EventSimulator;
 
 public class _Main {
 

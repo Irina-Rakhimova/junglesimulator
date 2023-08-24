@@ -1,4 +1,4 @@
-package ru.rakhimova.junglesimulator.util;
+package java.ru.rakhimova.junglesimulator.util;
 
 import ru.rakhimova.junglesimulator.entity.Bear;
 
@@ -49,55 +49,45 @@ public class EventSimulator {
     private void sleepEvent(Bear bear) {
         int energy = bear.getEnergy();
         energy = bear.getEnergy() + 8;
-        if (energy > 100) {
-            energy = 100;
-        }
         bear.setEnergy(energy);
         chekEnergy(bear);
+        chekMaxEnergy(bear);
         System.out.println("Медведь впал в спячку! Зарядился! + 6 энергии. Текущее здоровье: " + bear.getHealth() + " Текущая энергия: " + bear.getEnergy());
     }
 
     private void climbTree(Bear bear) {
         int energy = bear.getEnergy();
         energy = bear.getEnergy() - 4;
-        if (energy < 0) {
-            energy = 0;
-        }
         bear.setEnergy(energy);
         chekEnergy(bear);
+        chekMinEnergy(bear);
         System.out.println("Медведь залез на дерево! Устал! -4 энергии. Текущее здоровье: " + bear.getHealth() + " Текущая энергия: " + bear.getEnergy());
     }
 
     private void hideEvent(Bear bear) {
         int energy = bear.getEnergy();
         energy = bear.getEnergy() - 2;
-        if (energy > 100) {
-            energy = 100;
-        }
         bear.setEnergy(energy);
         chekEnergy(bear);
+        chekMinEnergy(bear);
         System.out.println("Медведь укрылся! Струсил! - 2 энергии. Текущее здоровье: " + bear.getHealth() + " Текущая энергия: " + bear.getEnergy());
     }
 
     private void eatRaspberry(Bear bear) {
         int health = bear.getHealth();
         health = bear.getHealth() + 2;
-        if (health > 100) {
-            health = 100;
-        }
         bear.setHealth(health);
         chekEnergy(bear);
+        chekMaxHealth(bear);
         System.out.println("Медведь съел малину! Подкрепился! +3 здоровья. Текущее здоровье: " + bear.getHealth() + " Текущая энергия: " + bear.getEnergy());
     }
 
     private void eatHoney(Bear bear) {
         int health = bear.getHealth();
         health = bear.getHealth() + 2;
-        if (health > 100) {
-            health = 100;
-        }
         bear.setHealth(health);
         chekEnergy(bear);
+        chekMaxHealth(bear);
         System.out.println("Медведь съел мед! Полакомился! + 4 здоровья. Текущее здоровье: " + bear.getHealth() + " Текущая энергия: " + bear.getEnergy());
     }
 
@@ -105,16 +95,12 @@ public class EventSimulator {
         int health = bear.getHealth();
         int energy = bear.getEnergy();
         health = (int) (health - (double) (bear.getClaws() * 4));
-        if (health < 0) {
-            health = 0;
-        }
         energy = (int) (energy - (double) (bear.getFangs() * 4));
-        if (energy < 0) {
-            energy = 0;
-        }
-        bear.setHealth(health);
         bear.setEnergy(energy);
+        bear.setHealth(health);
         chekEnergy(bear);
+        chekMinHealth(bear);
+        chekMinEnergy(bear);
         System.out.println("Медведь встретил лося! Поранился! - 10 здоровья,- 21 энергии. Текущее здоровье: " + bear.getHealth() + " Текущая энергия: " + bear.getEnergy());
     }
 
@@ -122,49 +108,39 @@ public class EventSimulator {
         int health = bear.getHealth();
         int energy = bear.getEnergy();
         health = (int) (health - (double) (bear.getClaws() * 6));
-        if (health < 0) {
-            health = 0;
-        }
         energy = (int) (energy - (double) (bear.getFangs() * 6));
-        if (energy < 0) {
-            energy = 0;
-        }
-        bear.setHealth(health);
         bear.setEnergy(energy);
+        bear.setHealth(health);
         chekEnergy(bear);
+        chekMinEnergy(bear);
+        chekMinHealth(bear);
         System.out.println("На медведя напал охотник! Ой-ой-ой как больно! - 15 здоровья, -28 энергии. Текущее здоровье: " + bear.getHealth() + " Текущая энергия: " + bear.getEnergy());
     }
 
     private void catchFish(Bear bear) {
         int energy = bear.getEnergy();
         energy = bear.getEnergy() - 4;
-        if (energy < 0) {
-            energy = 0;
-        }
         bear.setEnergy(energy);
         chekEnergy(bear);
+        chekMinEnergy(bear);
         System.out.println("Медведь ловит рыбку! Проголодался! - 7 энергии. Текущее здоровье: " + bear.getHealth() + " Текущая энергия: " + bear.getEnergy());
     }
 
     private void eatFish(Bear bear) {
         int energy = bear.getEnergy();
         energy = bear.getEnergy() + 10;
-        if (energy > 100) {
-            energy = 100;
-        }
         bear.setEnergy(energy);
         chekEnergy(bear);
+        chekMaxEnergy(bear);
         System.out.println("Медведь съел рыбку! Объелся! + 5 энергии. Текущее здоровье: " + bear.getHealth() + " Текущая энергия: " + bear.getEnergy());
     }
 
     private void observePrey(Bear bear) {
         int energy = bear.getEnergy();
         energy = bear.getEnergy() - 5;
-        if (energy < 0) {
-            energy = 0;
-        }
         bear.setEnergy(energy);
         chekEnergy(bear);
+        chekMinEnergy(bear);
         System.out.println("Медведь наблюдает за добычей! Скоро охота! - 5 энергии. Текущее здоровье: " + bear.getHealth() + " Текущая энергия: " + bear.getEnergy());
     }
 
@@ -181,7 +157,38 @@ public class EventSimulator {
                 health = 0;
             }
             bear.setHealth(health);
-
         }
+    }
+
+    private void chekMaxEnergy(Bear bear) {
+        int energy = bear.getEnergy();
+        if (bear.getEnergy() <= 100) {
+            energy = 100;
+        }
+        bear.setEnergy(energy);
+    }
+
+    private void chekMinEnergy(Bear bear) {
+        int energy = bear.getEnergy();
+        if (bear.getEnergy() < 0) {
+            energy = 0;
+        }
+        bear.setEnergy(energy);
+    }
+
+    private void chekMaxHealth(Bear bear) {
+        int health = bear.getHealth();
+        if (bear.getHealth() > 100) {
+            health = 100;
+        }
+        bear.setHealth(health);
+    }
+
+    private void chekMinHealth(Bear bear) {
+        int health = bear.getHealth();
+        if (bear.getHealth() < 0) {
+            health = 0;
+        }
+        bear.setHealth(health);
     }
 }
