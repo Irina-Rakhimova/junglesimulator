@@ -5,7 +5,6 @@ import ru.rakhimova.junglesimulator.entity.Bear;
 public class EventSimulator {
 
     public void startSimulation(Bear bear) {
-        Math.random();
         while (chekStatus(bear)) {
             int eventNumber = (int) (Math.random() * 100);
             if (eventNumber >= 0 && eventNumber < 10) {
@@ -38,7 +37,6 @@ public class EventSimulator {
             if (eventNumber >= 90 && eventNumber <= 100) {
                 observePrey(bear);
             }
-
             try {
                 Thread.sleep(1500);
             } catch (InterruptedException e) {
@@ -55,6 +53,7 @@ public class EventSimulator {
             energy = 100;
         }
         bear.setEnergy(energy);
+        chekEnergy(bear);
         System.out.println("Медведь впал в спячку! Зарядился! + 6 энергии. Текущее здоровье: " + bear.getHealth() + " Текущая энергия: " + bear.getEnergy());
     }
 
@@ -65,6 +64,7 @@ public class EventSimulator {
             energy = 0;
         }
         bear.setEnergy(energy);
+        chekEnergy(bear);
         System.out.println("Медведь залез на дерево! Устал! -4 энергии. Текущее здоровье: " + bear.getHealth() + " Текущая энергия: " + bear.getEnergy());
     }
 
@@ -75,6 +75,7 @@ public class EventSimulator {
             energy = 100;
         }
         bear.setEnergy(energy);
+        chekEnergy(bear);
         System.out.println("Медведь укрылся! Струсил! - 2 энергии. Текущее здоровье: " + bear.getHealth() + " Текущая энергия: " + bear.getEnergy());
     }
 
@@ -85,6 +86,7 @@ public class EventSimulator {
             health = 100;
         }
         bear.setHealth(health);
+        chekEnergy(bear);
         System.out.println("Медведь съел малину! Подкрепился! +3 здоровья. Текущее здоровье: " + bear.getHealth() + " Текущая энергия: " + bear.getEnergy());
     }
 
@@ -95,6 +97,7 @@ public class EventSimulator {
             health = 100;
         }
         bear.setHealth(health);
+        chekEnergy(bear);
         System.out.println("Медведь съел мед! Полакомился! + 4 здоровья. Текущее здоровье: " + bear.getHealth() + " Текущая энергия: " + bear.getEnergy());
     }
 
@@ -111,6 +114,7 @@ public class EventSimulator {
         }
         bear.setHealth(health);
         bear.setEnergy(energy);
+        chekEnergy(bear);
         System.out.println("Медведь встретил лося! Поранился! - 10 здоровья,- 21 энергии. Текущее здоровье: " + bear.getHealth() + " Текущая энергия: " + bear.getEnergy());
     }
 
@@ -127,6 +131,7 @@ public class EventSimulator {
         }
         bear.setHealth(health);
         bear.setEnergy(energy);
+        chekEnergy(bear);
         System.out.println("На медведя напал охотник! Ой-ой-ой как больно! - 15 здоровья, -28 энергии. Текущее здоровье: " + bear.getHealth() + " Текущая энергия: " + bear.getEnergy());
     }
 
@@ -137,6 +142,7 @@ public class EventSimulator {
             energy = 0;
         }
         bear.setEnergy(energy);
+        chekEnergy(bear);
         System.out.println("Медведь ловит рыбку! Проголодался! - 7 энергии. Текущее здоровье: " + bear.getHealth() + " Текущая энергия: " + bear.getEnergy());
     }
 
@@ -147,6 +153,7 @@ public class EventSimulator {
             energy = 100;
         }
         bear.setEnergy(energy);
+        chekEnergy(bear);
         System.out.println("Медведь съел рыбку! Объелся! + 5 энергии. Текущее здоровье: " + bear.getHealth() + " Текущая энергия: " + bear.getEnergy());
     }
 
@@ -157,16 +164,13 @@ public class EventSimulator {
             energy = 0;
         }
         bear.setEnergy(energy);
+        chekEnergy(bear);
         System.out.println("Медведь наблюдает за добычей! Скоро охота! - 5 энергии. Текущее здоровье: " + bear.getHealth() + " Текущая энергия: " + bear.getEnergy());
     }
 
     private boolean chekStatus(Bear bear) {
         System.out.println("hp: " + bear.getHealth() + " energy: " + bear.getEnergy());
-        if (bear.getHealth() <= 0) {
-            return false;
-        } else {
-            return true;
-        }
+        return bear.getHealth() > 0;
     }
 
     private void chekEnergy(Bear bear) {
